@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Visible Calculator</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    }
+
+    .calculator {
+      width: 100%;
+      max-width: 420px;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 25px;
+      border-radius: 25px;
+      box-shadow: 0 0 25px rgba(255, 255, 255, 0.15), 0 0 40px rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    input {
+      width: 100%;
+      padding: 25px;
+      margin-bottom: 25px;
+      background: rgba(255, 255, 255, 0.05);
+      border: none;
+      font-size: 2.5rem;
+      text-align: right;
+      color: #fff;
+      border-radius: 12px;
+      box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.1);
+    }
+
+    input::placeholder {
+      color: #bbb;
+    }
+
+    .calculator div {
+   
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+
+
+    }
+
+    button {
+  width: 65px;
+  height: 65px;
+  margin: 8px;
+  font-size: 1.4rem;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+  transition: transform 0.2s, background 0.2s;
+}
+
+
+    button:hover {
+      transform: scale(1.08);
+      background: rgba(255, 255, 255, 0.25);
+    }
+
+    .equalBtn {
+      background-color: #fb7c14;
+      color: white;
+    }
+
+    .equalBtn:hover {
+      background-color: #ff8c00;
+    }
+
+    .operator {
+      color: #32cd32;
+    }
+
+    @media (max-width: 500px) {
+      .calculator {
+        padding: 15px;
+        max-width: 90%;
+      }
+
+      button {
+        width: 22%;
+        height: 55px;
+        font-size: 1.1rem;
+      }
+
+      input {
+        font-size: 2rem;
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <input type="text" placeholder="0" id="inputbox" />
+    <div>
+      <button class="operator">AC</button>
+      <button class="operator">DEL</button>
+      <button class="operator">%</button>
+      <button class="operator">/</button>
+
+      <button>7</button>
+      <button>8</button>
+      <button>9</button>
+      <button class="operator">*</button>
+
+      <button>4</button>
+      <button>5</button>
+      <button>6</button>
+      <button class="operator">-</button>
+
+      <button>1</button>
+      <button>2</button>
+      <button>3</button>
+      <button class="operator">+</button>
+
+      <button>00</button>
+      <button>0</button>
+      <button class="operator">.</button>
+      <button class="equalBtn">=</button>
+    </div>
+  </div>
+
+  <script>
+    let input = document.getElementById('inputbox');
+    let buttons = document.querySelectorAll('button');
+    let string = '';
+
+    buttons.forEach(button => {
+      button.addEventListener('click', e => {
+        const value = e.target.innerHTML;
+
+        if (value === '=') {
+          try {
+            string = eval(string);
+            input.value = string;
+          } catch {
+            input.value = 'Error';
+            string = '';
+          }
+        } else if (value === 'AC') {
+          string = '';
+          input.value = string;
+        } else if (value === 'DEL') {
+          string = string.slice(0, -1);
+          input.value = string;
+        } else {
+          string += value;
+          input.value = string;
+        }
+      });
+    });
+  </script>
+</body>
+</html>
